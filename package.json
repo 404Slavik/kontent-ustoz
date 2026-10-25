@@ -2,9 +2,9 @@
   "name": "kontentustoz",
   "version": "1.0.0",
   "type": "module",
+  "engines": { "node": ">=18" },
   "scripts": { "start": "node server.js" },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.60.0",
     "express": "^4.21.0"
   }
 }
