@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KontentUstoz — video yaratuvchilar uchun yordamchi</title>
+<style>
+:root{--bg:#faf8f5;--card:#fff;--tx:#1d1b1a;--mu:#6b6560;--ac:#e8431f;--ac2:#fff;--bd:#e7e2dc;--ok:#1a8a4a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161412;--card:#201d1b;--tx:#f3efe9;--mu:#a39b93;--ac:#ff6a45;--ac2:#1a0d08;--bd:#363029;--ok:#4cc77f}}
+:root[data-theme="dark"]{--bg:#161412;--card:#201d1b;--tx:#f3efe9;--mu:#a39b93;--ac:#ff6a45;--ac2:#1a0d08;--bd:#363029;--ok:#4cc77f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.w{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:26px;line-height:1.2;margin:8px 0 4px}
+.sub{color:var(--mu);margin:0 0 16px}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--mu)}
+.badge{background:var(--card);border:1px solid var(--bd);border-radius:99px;padding:3px 10px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px}
+.tabs button{flex:0 0 auto;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:99px;padding:8px 14px;font:inherit;font-size:14px;cursor:pointer}
+.tabs button.on{background:var(--ac);color:var(--ac2);border-color:var(--ac)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;margin-bottom:14px}
+label{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}
+input,select,textarea{width:100%;font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.go{width:100%;margin-top:14px;border:0;background:var(--ac);color:var(--ac2);font:inherit;font-weight:600;padding:12px;border-radius:12px;cursor:pointer}
+.go:disabled{opacity:.6}
+.res{list-style:none;margin:12px 0 0;padding:0}
+.res li{display:flex;gap:8px;justify-content:space-between;align-items:flex-start;border-top:1px solid var(--bd);padding:10px 0}
+.res li button{flex:0 0 auto;border:1px solid var(--bd);background:none;color:var(--mu);border-radius:8px;padding:4px 8px;font-size:12px;cursor:pointer}
+.msg{color:var(--mu);font-size:14px;margin-top:10px}
+.ad{border:1px dashed var(--bd);border-radius:12px;text-align:center;color:var(--mu);font-size:12px;padding:14px;margin:14px 0}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.plan{border:1px solid var(--bd);border-radius:14px;padding:14px;background:var(--card)}
+.plan.pro{border-color:var(--ac)}
+.plan h3{margin:0 0 2px}.price{font-size:22px;font-weight:700}
+.plan ul{padding-left:18px;margin:8px 0 0;font-size:14px;color:var(--mu)}
+footer{color:var(--mu);font-size:12px;text-align:center;padding:12px 0}
+@media(max-width:480px){.row,.plans{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="w">
+  <div class="top"><b>🎬 KontentUstoz</b><span class="badge" id="left">Bugun: 5 ta bepul</span></div>
+  <h1>TikTok, Instagram va YouTube uchun tezkor yordamchi</h1>
+  <p class="sub">Sarlavha, hashtag, g‘oya va format maslahatlari — bir joyda.</p>
+
+  <div class="tabs" id="tabs"></div>
+
+  <div class="card">
+    <label>Video mavzusi</label>
+    <input id="topic" placeholder="Masalan: uyda 10 daqiqalik mashq">
+    <div class="row">
+      <div><label>Platforma</label>
+        <select id="plat"><option>TikTok</option><option>Instagram Reels</option><option>YouTube Shorts</option><option>YouTube (uzun video)</option></select></div>
+      <div id="extraWrap"><label id="extraL">Ohang</label>
+        <select id="extra"></select></div>
+    </div>
+    <div id="toWrap" style="display:none"><label>Qaysi platformaga o‘zgartirish</label>
+      <select id="to"><option>TikTok</option><option>Instagram Reels</option><option>YouTube Shorts</option><option>YouTube (uzun video)</option></select></div>
+    <button class="go" id="go">Yaratish ✨</button>
+    <div class="msg" id="msg"></div>
+    <ul class="res" id="res"></ul>
+  </div>
+
+  <div class="ad">Reklama joyi (bepul foydalanuvchilar uchun)</div>
+
+  <h2 style="font-size:20px">Tariflar</h2>
+  <div class="plans">
+    <div class="plan"><h3>Bepul</h3><div class="price">0 so‘m</div>
+      <ul><li>Kuniga 5 ta so‘rov</li><li>Reklama bor</li></ul></div>
+    <div class="plan pro"><h3>Pro ⭐</h3><div class="price">39 000 so‘m/oy</div>
+      <ul><li>Cheksiz so‘rovlar</li><li>Reklamasiz</li><li>Ko‘proq variantlar</li></ul>
+      <button class="go" id="pro">Pro olish</button></div>
+  </div>
+  <footer>Demo versiya: to‘lov tizimi hali ulanmagan.</footer>
+</div>
+
+<script>
+const T={
+ title:{n:"Sarlavha",extraL:"Ohang",extra:["Qiziqarli","Jiddiy","Hayajonli","Kulgili"],
+  p:(t,p,e)=>`${p} uchun "${t}" mavzusidagi videoga ${e.toLowerCase()} ohangda 8 ta jozibali sarlavha yoz. O‘zbek tilida. Faqat JSON massiv (satrlar) qaytar.`},
+ tag:{n:"Hashtag",extraL:"Auditoriya",extra:["O‘zbekiston","Xalqaro","Ikkalasi"],
+  p:(t,p,e)=>`${p} uchun "${t}" videosiga mos 15 ta hashtag tavsiya qil (auditoriya: ${e}). Ommabop va nisha hashtaglarni aralashtir. Har bir satr # bilan boshlansin. Faqat JSON massiv qaytar.`},
+ idea:{n:"G‘oyalar",extraL:"Uslub",extra:["Qisqa va viral","Ta’limiy","Hikoya","Trend"],
+  p:(t,p,e)=>`${p} uchun "${t}" mavzusida ${e} uslubda 8 ta video g‘oyasi ber. Har biri: qisqa nom + bir jumla ta’rif + boshlanish "hook". O‘zbek tilida. Faqat JSON massiv (satrlar) qaytar.`},
+ fmt:{n:"Format",extraL:"Hozirgi format",extra:["Gorizontal 16:9","Vertikal 9:16","Kvadrat 1:1"],
+  p:(t,p,e,to)=>`"${t}" mavzusidagi video hozir ${p} uchun (${e}). Uni ${to} ga moslashtirish uchun 6 ta aniq maslahat ber: nisbat, davomiylik, subtitr, kadr, sarlavha/caption, hook. O‘zbek tilida. Faqat JSON massiv (satrlar) qaytar.`}
+};
+const $=id=>document.getElementById(id);
+let cur="title";
+const LIMIT=5;
+function today(){return new Date().toISOString().slice(0,10)}
+function used(){try{const o=JSON.parse(localStorage.getItem("ku")||"{}");return o.d===today()?o.n:0}catch(e){return 0}}
+function bump(){try{localStorage.setItem("ku",JSON.stringify({d:today(),n:used()+1}))}catch(e){}}
+function pro(){try{return localStorage.getItem("kpro")==="1"}catch(e){return false}}
+function badge(){$("left").textContent=pro()?"Pro ⭐ cheksiz":"Bugun: "+Math.max(0,LIMIT-used())+" ta bepul"}
+function tabs(){
+  $("tabs").innerHTML="";
+  Object.keys(T).forEach(k=>{const b=document.createElement("button");b.textContent=T[k].n;b.className=k===cur?"on":"";b.onclick=()=>{cur=k;tabs();setup()};$("tabs").appendChild(b)});
+}
+function setup(){
+  const t=T[cur];$("extraL").textContent=t.extraL;
+  $("extra").innerHTML=t.extra.map(x=>`<option>${x}</option>`).join("");
+  $("extraWrap").style.display=cur==="tag"||cur==="fmt"||true?"block":"none";
+  $("toWrap").style.display=cur==="fmt"?"block":"none";
+  $("res").innerHTML="";$("msg").textContent="";
+}
+async function run(){
+  const topic=$("topic").value.trim();
+  if(!topic){$("msg").textContent="Avval video mavzusini yozing.";return}
+  const btn=$("go");btn.disabled=true;$("msg").textContent="Yaratilmoqda…";$("res").innerHTML="";
+  try{
+    const r=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({tool:cur,topic,platform:$("plat").value,extra:$("extra").value,to:$("to").value})});
+    const d=await r.json();
+    if(!r.ok){$("msg").textContent=r.status===429?"Bugungi bepul limit tugadi. Cheksiz foydalanish uchun Pro tarifni tanlang 👇":(d.error||"Xatolik");if(r.status===429)$("left").textContent="Bugun: 0 ta bepul";return}
+    const list=d.items;
+    $("left").textContent="Bugun: "+d.left+" ta bepul";
+    list.forEach(x=>{const li=document.createElement("li");const sp=document.createElement("span");sp.textContent=String(x);
+      const c=document.createElement("button");c.textContent="Nusxa";
+      c.onclick=async()=>{try{await navigator.clipboard.writeText(String(x));c.textContent="✓"}catch(e){c.textContent="—"}};
+      li.append(sp,c);$("res").appendChild(li)});
+    $("msg").textContent="";
+  }catch(e){$("msg").textContent="Xatolik yuz berdi, qayta urinib ko‘ring."}
+  finally{btn.disabled=false}
+}
+$("go").onclick=run;
+$("pro").onclick=()=>{$("msg").textContent="";alert("Demo: to‘lov hali ulanmagan. Haqiqiy sayt uchun Click/Payme ulanadi.")};
+tabs();setup();badge();
+</script>
+</body>
+</html>
